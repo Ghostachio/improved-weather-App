@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script src="script.js" defer></script>
+    <title>Weather App v2</title>
+  </head>
+  <body>
+    <main class="container">
+      <section class="search-section">
+        <input
+          type="text"
+          name="cityName"
+          id="cityName"
+          placeholder="Search City"
+        />
+        <span class="material-symbols-outlined loop" id="search"> search </span>
+      </section>
+      <section class="city-name-date">
+        <div class="location">
+          <span class="material-symbols-outlined">location_on</span>
+          <h2 id="city">Tokyo</h2>
+        </div>
+        <h3 id="date">Wed, 23 Aug</h3>
+      </section>
+      <section class="global-weather">
+        <img
+          src="./Assets/icons8-partly-cloudy-day-50.png"
+          alt="weather-condition"
+          class="global-icon"
+        />
+        <div class="temperature-conditions">
+          <h3 id="temp">43 C</h3>
+          <p id="sky">Clouds</p>
+        </div>
+      </section>
+      <section class="wind-humidity">
+        <div class="details-container">
+          <span class="material-symbols-outlined"> water_drop </span>
+          <div>
+            <h3>Humidity</h3>
+            <p id="humidity">55%</p>
+          </div>
+        </div>
+        <div class="details-container">
+          <span class="material-symbols-outlined"> air </span>
+          <div>
+            <h3>Wind Speed</h3>
+            <p id="wind">2m/s</p>
+          </div>
+        </div>
+      </section>
+      <section class="forcast">
+        <div class="day-details">
+          <h3>05, aug</h3>
+          <img src="./Assets/icons8-cloud-lightning-50.png" alt="" />
+          <h4>29C</h4>
+        </div>
+        <div class="day-details">
+          <h3>05, aug</h3>
+          <img src="./Assets/icons8-cloud-lightning-50.png" alt="" />
+          <h4>29C</h4>
+        </div>
+        <div class="day-details">
+          <h3>05, aug</h3>
+          <img src="./Assets/icons8-cloud-lightning-50.png" alt="" />
+          <h4>29C</h4>
+        </div>
+        <div class="day-details">
+          <h3>05, aug</h3>
+          <img src="./Assets/icons8-cloud-lightning-50.png" alt="" />
+          <h4>29C</h4>
+        </div>
+        <div class="day-details">
+          <h3>05, aug</h3>
+          <img src="./Assets/icons8-cloud-lightning-50.png" alt="" />
+          <h4>29C</h4>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
