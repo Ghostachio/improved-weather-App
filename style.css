@@ -185,3 +185,47 @@ body::before {
     width: 6rem;
   }
 }
+
+@media (max-width: 400px) {
+  .container {
+    width: 300px;
+    padding: 1rem;
+    margin: 1rem;
+  }
+  .wind-humidity {
+    width: 100%;
+    height: 8rem;
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    font-size: medium;
+    gap: 1rem;
+    .details-container {
+      display: flex;
+      gap: 0.9rem;
+      align-items: center;
+    }
+    span {
+      font-size: 1.5rem;
+    }
+  }
+
+  .global-weather {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 10rem;
+    width: 100%;
+    .global-icon {
+      height: 7rem;
+      width: 7rem;
+    }
+    .temperature-conditions > h3 {
+      font-size: 2.5rem;
+    }
+    .temperature-conditions > p {
+      font-size: 1.5rem;
+      font-weight: light;
+    }
+  }
+}

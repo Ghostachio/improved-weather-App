@@ -12,6 +12,7 @@ const details = document.querySelectorAll(".day-details");
 const weatherContainer = document.querySelector(".weather-container");
 const searchMessage = document.querySelector(".search-message");
 const errorMessage = document.querySelector(".error-message");
+const addBtn = document.querySelector(".add");
 
 // end of Selectors
 
@@ -48,13 +49,24 @@ const fetchWeatherData = async () => {
   if (data.cod === 200) {
     weatherContainer.style.display = "block";
     searchMessage.style.display = "none";
+    errorMessage.style.display = "none";
 
-    city.innerText = data.name;
-    date.innerText = today.toLocaleDateString("en-US");
-    temperature.innerText = `${Math.floor(data.main.temp)}\u00B0C`;
-    sky.innerText = data.weather[0].main;
-    wind.innerText = `${Math.floor(data.wind.speed)}m/s`;
-    humidity.innerText = `${data.main.humidity} %`;
+    const weatherData = {
+      cityName: data.name,
+      date: today.toLocaleDateString("en-US"),
+      temperature: `${Math.floor(data.main.temp)}\u00B0C`,
+      skyCondition: data.weather[0].main,
+      windSpeed: `${Math.floor(data.wind.speed)}m/s`,
+      humidity: `${data.main.humidity} %`,
+      imageSrc: image.src,
+    };
+
+    city.innerText = weatherData.cityName;
+    date.innerText = weatherData.date;
+    temperature.innerText = weatherData.temperature;
+    sky.innerText = weatherData.skyCondition;
+    wind.innerText = weatherData.windSpeed;
+    humidity.innerText = weatherData.humidity;
     if (data.weather[0].id < 300) {
     } else if (data.weather[0].id <= 500) {
       image.src = weatherIcons.drizzle;
@@ -68,9 +80,8 @@ const fetchWeatherData = async () => {
       image.src = weatherIcons.clouds;
     }
     cityName.value = "";
+    currentData = weatherData;
   }
-
-  console.log(data);
 };
 const fetchForcastData = async () => {
   const res = await axios.get(
