@@ -39,6 +39,27 @@ body::before {
   padding: 1rem;
 }
 
+.weather-container {
+  display: none;
+}
+
+.search-message {
+  display: block;
+  text-align: center;
+  padding: 2rem;
+  h1 {
+    color: rgba(0, 0, 0, 0.6);
+  }
+}
+.error-message {
+  display: none;
+  text-align: center;
+  padding: 2rem;
+  h1 {
+    color: rgba(0, 0, 0, 0.6);
+  }
+}
+
 .search-section {
   height: 2rem;
   width: 100%;
@@ -156,6 +177,9 @@ body::before {
   background: rgba(0, 0, 0, 0.15);
   border-radius: 1rem;
   margin-bottom: 2rem;
+  h3 {
+    font-size: medium;
+  }
   img {
     height: 6rem;
     width: 6rem;

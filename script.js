@@ -8,6 +8,10 @@ const wind = document.querySelector("#wind");
 const temperature = document.querySelector("#temp");
 const sky = document.querySelector("#sky");
 const image = document.querySelector(".global-icon");
+const details = document.querySelectorAll(".day-details");
+const weatherContainer = document.querySelector(".weather-container");
+const searchMessage = document.querySelector(".search-message");
+const errorMessage = document.querySelector(".error-message");
 
 // end of Selectors
 
@@ -26,29 +30,46 @@ const weatherIcons = {
 };
 
 const fetchWeatherData = async () => {
-  const res = await axios.get(
-    `https://api.openweathermap.org/data/2.5/weather?q=${cityName.value}&appid=${KEY}&units=metric`
-  );
-  const data = await res.data;
-  city.innerText = data.name;
-  date.innerText = today.toLocaleDateString("en-GB");
-  temperature.innerText = `${Math.floor(data.main.temp)}\u00B0C`;
-  sky.innerText = data.weather[0].main;
-  wind.innerText = `${Math.floor(data.wind.speed)}m/s`;
-  humidity.innerText = `${data.main.humidity} %`;
-  if (data.weather[0].id < 300) {
-  } else if (data.weather[0].id <= 500) {
-    image.src = weatherIcons.drizzle;
-  } else if (data.weather[0].id <= 600) {
-    image.src = weatherIcons.rain;
-  } else if (data.weather[0].id <= 700) {
-    image.src = weatherIcons.dust;
-  } else if (data.weather[0].id === 800) {
-    image.src = weatherIcons.clear;
-  } else {
-    image.src = weatherIcons.clouds;
+  const res = await axios
+    .get(
+      `https://api.openweathermap.org/data/2.5/weather?q=${cityName.value.trim()}&appid=${KEY}&units=metric`
+    )
+    .catch((e) => e);
+
+  const data = res.data;
+  const error = res instanceof Error;
+  if (error) {
+    weatherContainer.style.display = "none";
+    searchMessage.style.display = "none";
+    errorMessage.style.display = "block";
+    cityName.value = "";
   }
-  cityName.value = "";
+
+  if (data.cod === 200) {
+    weatherContainer.style.display = "block";
+    searchMessage.style.display = "none";
+
+    city.innerText = data.name;
+    date.innerText = today.toLocaleDateString("en-US");
+    temperature.innerText = `${Math.floor(data.main.temp)}\u00B0C`;
+    sky.innerText = data.weather[0].main;
+    wind.innerText = `${Math.floor(data.wind.speed)}m/s`;
+    humidity.innerText = `${data.main.humidity} %`;
+    if (data.weather[0].id < 300) {
+    } else if (data.weather[0].id <= 500) {
+      image.src = weatherIcons.drizzle;
+    } else if (data.weather[0].id <= 600) {
+      image.src = weatherIcons.rain;
+    } else if (data.weather[0].id <= 700) {
+      image.src = weatherIcons.dust;
+    } else if (data.weather[0].id === 800) {
+      image.src = weatherIcons.clear;
+    } else {
+      image.src = weatherIcons.clouds;
+    }
+    cityName.value = "";
+  }
+
   console.log(data);
 };
 const fetchForcastData = async () => {
@@ -58,7 +79,26 @@ const fetchForcastData = async () => {
   const { list } = await res.data;
   const element = list.filter((el) => el.dt_txt.includes("00:00:00"));
 
-  console.log(element);
+  for (let i = 0; i < element.length; i++) {
+    const time = new Date(element[i].dt * 1000).toLocaleDateString("en-US");
+    details[i].querySelector("h3").textContent = time;
+    details[i].querySelector("h4").textContent = `${Math.floor(
+      element[i].main.temp
+    )}\u00B0C `;
+
+    if (element[i].weather[0].id < 300) {
+    } else if (element[i].weather[0].id <= 500) {
+      details[i].querySelector("img").src = weatherIcons.drizzle;
+    } else if (element[i].weather[0].id <= 600) {
+      details[i].querySelector("img").src = weatherIcons.rain;
+    } else if (element[i].weather[0].id <= 700) {
+      details[i].querySelector("img").src = weatherIcons.dust;
+    } else if (element[i].weather[0].id === 800) {
+      details[i].querySelector("img").src = weatherIcons.clear;
+    } else {
+      details[i].querySelector("img").src = weatherIcons.clouds;
+    }
+  }
 };
 
 search.addEventListener("click", () => {
